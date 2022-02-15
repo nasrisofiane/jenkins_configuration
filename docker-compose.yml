@@ -1,0 +1,16 @@
+version: "3"
+services:
+  jenkins:
+    user: root
+    image: 'jenkins-epsi-group'
+    volumes:
+      - '/home/jenkins:/var/jenkins_home'
+    ports:
+      - '8080:8080'
+      - '50000:50000'
+  apache-server:
+    image: 'apache-server'
+    stdin_open: true
+    tty: true 
+    ports:
+      - '8082:80'
