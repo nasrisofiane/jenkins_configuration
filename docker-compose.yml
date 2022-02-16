@@ -1,16 +1,30 @@
-version: "3"
-services:
-  jenkins:
-    user: root
-    image: 'jenkins-epsi-group'
-    volumes:
-      - '/home/jenkins:/var/jenkins_home'
-    ports:
-      - '8080:8080'
-      - '50000:50000'
-  apache-server:
-    image: 'apache-server'
+networks: 
+  customnetwork: 
+    driver: bridge
+    ipam: 
+      config: 
+        - 
+          gateway: "10.5.0.1"
+          subnet: 10.5.0.0/16
+services: 
+  apache-server: 
+    image: apache-server
+    networks: 
+      customnetwork: 
+        ipv4_address: "10.5.0.6"
+    ports: 
+      - "8082:80"
     stdin_open: true
-    tty: true 
-    ports:
-      - '8082:80'
+    tty: true
+  jenkins: 
+    image: jenkins-epsi-group
+    networks: 
+      customnetwork: 
+        ipv4_address: "10.5.0.5"
+    ports: 
+      - "8080:8080"
+      - "50000:50000"
+    user: root
+    volumes: 
+      - "/home/jenkins:/var/jenkins_home"
+version: "3
