@@ -27,4 +27,4 @@ services:
     user: root
     volumes: 
       - "/home/jenkins:/var/jenkins_home"
-version: "3
+version: "3"
